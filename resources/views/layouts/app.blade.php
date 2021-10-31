@@ -1,16 +1,12 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{-- <!doctype html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -79,5 +75,71 @@
             @yield('content')
         </main>
     </div>
+</body>
+</html> --}}
+
+
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {{-- Scripts --}}
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    {{-- Style --}}
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+</head>
+<body>
+    
+    @include('layouts.partials.sidebar')
+    
+    <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+        @include('layouts.partials.header')
+
+        <div class="body flex-grow-1 px-3">
+            <div class="container-lg">
+                <div class="row">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    if (document.body.classList.contains("dark-theme")) {
+    var element = document.getElementById("btn-dark-theme");
+    if (typeof element != "undefined" && element != null) {
+        document.getElementById("btn-dark-theme").checked = true;
+    }
+} else {
+    var element = document.getElementById("btn-light-theme");
+    if (typeof element != "undefined" && element != null) {
+        document.getElementById("btn-light-theme").checked = true;
+    }
+}
+
+function handleThemeChange(src) {
+    var event = document.createEvent("Event");
+    event.initEvent("themeChange", true, true);
+
+    if (src.value === "light") {
+        document.body.classList.remove("dark-theme");
+    }
+    if (src.value === "dark") {
+        document.body.classList.add("dark-theme");
+    }
+    document.body.dispatchEvent(event);
+}
+</script>
 </body>
 </html>

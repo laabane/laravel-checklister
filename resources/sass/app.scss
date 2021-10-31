@@ -1,8 +1,14 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// custom style
+@import "custom";
 
-// Variables
-@import 'variables';
+// CoreUI customed
+@import "style";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// PrismJS
+@import "~prismjs/themes/prism.css";
+
+.simplebar-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
