@@ -42,18 +42,32 @@
                                     Dashboard
                                 </a>
                             </li>
-                            @if (auth()->user()->is_admin)
-                            <li class="nav-title">Admin</li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.pages.index') }}">
-                                    <svg class="nav-icon">
-                                        <use
-                                            xlink:href="{{ asset('icons/free.svg#cil-library') }}"
-                                        ></use>
-                                    </svg>
-                                    Pages</a
-                                >
-                            </li>
+                            @if (auth()->check() && auth()->user()->is_admin)
+
+                                <li class="nav-title">Admin</li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                        <svg class="nav-icon">
+                                            <use
+                                                xlink:href="{{ asset('icons/free.svg#cil-library') }}"
+                                            ></use>
+                                        </svg>
+                                        Pages</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.checklist_groups.index') }}">
+                                        <svg class="nav-icon">
+                                            <use
+                                                xlink:href="{{ asset('icons/free.svg#cil-apps') }}"
+                                            ></use>
+                                        </svg>
+                                        Checklists and Groups</a
+                                    >
+                                </li>
+
+                                
+
                             @endif
                             <li class="nav-title">Components</li>
                             <li class="nav-group">

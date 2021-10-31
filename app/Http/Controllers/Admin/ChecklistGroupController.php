@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChecklistGroupValidationRequest;
+use App\Models\ChecklistGroup;
 use Illuminate\Http\Request;
 
 class ChecklistGroupController extends Controller
@@ -14,7 +16,8 @@ class ChecklistGroupController extends Controller
      */
     public function index()
     {
-        //
+        $checklistGroups = ChecklistGroup::paginate(8);
+        return view('admin.checklist_group.index', compact('checklistGroups'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ChecklistGroupController extends Controller
      */
     public function create()
     {
-        //
+        $checklistGroup = new ChecklistGroup();
+        return view('admin.checklist_group.create', compact('checklistGroup'));
     }
 
     /**
@@ -33,9 +37,10 @@ class ChecklistGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChecklistGroupValidationRequest $request)
     {
-        //
+        $checklistGroup = ChecklistGroup::create($request->validated());
+        return redirect()->route('admin.checklist_groups.show', $checklistGroup->id);
     }
 
     /**
@@ -44,9 +49,9 @@ class ChecklistGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ChecklistGroup $checklistGroup)
     {
-        //
+        return view('admin.checklist_group.show', compact('checklistGroup'));
     }
 
     /**
@@ -55,9 +60,9 @@ class ChecklistGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ChecklistGroup $checklistGroup)
     {
-        //
+        return view('admin.checklist_group.edit', compact('checklistGroup'));
     }
 
     /**
@@ -67,9 +72,10 @@ class ChecklistGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ChecklistGroupValidationRequest $request, ChecklistGroup $checklistGroup)
     {
-        //
+        $checklistGroup->update($request->validated());
+        return redirect()->route('admin.checklist_groups.show', $checklistGroup->id);
     }
 
     /**
@@ -78,8 +84,9 @@ class ChecklistGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ChecklistGroup $checklistGroup)
     {
-        //
+        $checklistGroup->delete();
+        return redirect()->route('admin.checklist_groups.index');
     }
 }
